@@ -1,5 +1,5 @@
 import numpy as np
-
+import re
 
 
 class DNA:
@@ -17,6 +17,11 @@ class DNA:
 
     def set_file_path(self, path: str):
         self.file_path = path
+
+    def rc(self):
+        self.seq = self.seq.upper()
+        self.seq = self.seq.replace('A', 't').replace('T', 'a').replace('C', 'g').replace('G', 'c')
+        self.seq = self.seq.uppper()
 
     def __str__(self):
         return 'DNA sequence {self.name} at {self.file_path}:\n{self.seq}'.format(self=self)
