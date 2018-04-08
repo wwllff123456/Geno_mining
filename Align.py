@@ -30,7 +30,6 @@ class DNA:
         logging.info('Path set as {}\n'.format(path))
 
     def rc(self):
-        logging.info('')
         self.seq = self.seq.upper()
         self.seq = self.seq.replace('A', 't').replace('T', 'a').replace('C', 'g').replace('G', 'c')
         self.seq = self.seq.upper()[::-1]
@@ -39,6 +38,7 @@ class DNA:
 
     def __str__(self):
         return '\nDNA sequence {self.name} at {self.file_path}:\n{self.seq}\n'.format(self=self)
+
 
 
 
