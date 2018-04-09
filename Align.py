@@ -5,6 +5,7 @@ import datetime
 
 logging.basicConfig(filename='log.log', level=logging.INFO, filemode='w', format='%(message)s')
 
+
 class DNA:
 
     def __init__(self):
@@ -29,11 +30,14 @@ class DNA:
         self.file_path = path
         logging.info('Path set as {}\n'.format(path))
 
+    def __len__(self):
+        return len(self.seq)
+
     def rc(self):
         self.seq = self.seq.upper()
         self.seq = self.seq.replace('A', 't').replace('T', 'a').replace('C', 'g').replace('G', 'c')
         self.seq = self.seq.upper()[::-1]
-        logging.info('RC Done.')
+        logging.info('RC Done.\n')
 
 
     def __str__(self):
@@ -41,13 +45,50 @@ class DNA:
 
 
 
+class Guide(DNA):
+
+    pass
+
+
+class Chromosome(DNA):
+
+    pass
+
+
+def linear_compare(dna_0: str, dna_1: str, score_list: list, length=20) -> int:
+    """Calculate the score_of_matching for two DNA sequences in a linear way"""
+
+    if not len(dna_0) == len(dna_1) == len(score_list) == length:
+        print('Not the same length in the two dna or the score list!!')
+        logging.info('Length Error in the two dna or the score list: '
+                     '\n[{}] {}\n[{}] {}\n[{}] {}\n'
+                     'Length needs to be {}'
+                     .format(len(dna_0), dna_0, len(dna_1), dna_1, len(score_list), score_list, length))
+        logging.info('Exiting...')
+        raise ValueError('Not the same length in the two dna or the score list!!')
+
+    score = 0
+    num = 0
+
+    for i in range(len(dna_0)):
+        if dna_0[i] == dna_1[i]:
+            score += score_list[i]
+            num += 1
+
+    logging.info('Compared: \n{}\n{}\n'.format(dna_0, dna_1))
+    logging.info('matches: {}/{}\tscore: {}/{}\n'
+                 .format(num, len(dna_0), score, sum(score_list)))
+
+    return score
+
+
+def needleman(dna_0: str, dna_1: str, match_list: list, penalty_list: list, gap_list: list) -> int:
+    """Calculate the score_of_matching for two DNA sequences with Needleman-Wunsch algorithm"""
 
 
 
 
-
-
-
+    return 0
 
 
 
@@ -77,7 +118,9 @@ def test():
 
     a.rc()
 
-    print(a)
+    print(a, len(a))
+
+    linear_compare('AGCTTAGCTA', 'AGCTTCAGCT', [1,1,2,2,3,3,4,4,5,5])
 
 
 
