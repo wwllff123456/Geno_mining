@@ -44,12 +44,50 @@ class DNA:
 
 class Guide(DNA):
 
-    pass
+    def __init__(self):
+        super().__init__()
+        self.mode = 'N'     # mode can be F: (forward, --------NGG) or B: (backward, GGN------------)
+
+    def validate(self):
+        v = False
+        if len(self) == 20:
+            v = True
+
+        if len(self) == 23 and (self.seq.startswith('GG') or self.seq.endswith('GG')):
+            v = True
+
+
+
+
+
+
+        if not v:
+            print('Guide length error!:\n{}/{}'.format(len(self), self.seq))
+            logging.info('Guide length error!:\n{}/{}'.format(len(self), self.seq))
+
+
+    def update_direction(self, d=''):
+        pass
+
+
 
 
 class Chromosome(DNA):
 
-    pass
+    def __init__(self):
+        super().__init__()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def validate(dna_0: str, dna_1: str, *lists: list, length=20) -> bool:
@@ -257,12 +295,16 @@ def needleman(dna_0: str, dna_1: str, match_list: list, penalty_list: list, gap_
     # f.write('\n')
     # f.close()
 
-    for i in range(20):
-        for j in range(20):
-            move[i][j] = ' '*(3-len(move[i][j]))+move[i][j]
-    for i in move:
+    # for i in range(20):
+    #     for j in range(20):
+    #         move[i][j] = ' '*(3-len(move[i][j]))+move[i][j]
+    # for i in move:
+    #     print(i)
+    #     print()
+
+    for i in grid:
         print(i)
-        print()
+
     align_two_1(move)
     print(set(way_of_alignment))
     sss = []
@@ -278,7 +320,7 @@ def needleman(dna_0: str, dna_1: str, match_list: list, penalty_list: list, gap_
     for i in s[:10]:
         print(i[1])
 
-    return 0
+    return grid[-1][-1]
 
 
 
